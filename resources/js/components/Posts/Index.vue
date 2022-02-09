@@ -9,10 +9,10 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <th>Some</th>
-                    <th>Some</th>
-                    <th>Some</th>
+                <tr v-for="post in posts.data">
+                    <th>{{ post.title }}</th>
+                    <th>{{ post.post_text.substring(0,50) }}</th>
+                    <th>{{ post.created_at }}</th>
                 </tr>
             </tbody>
         </table>
@@ -20,5 +20,22 @@
 </template>
 
 <script>
-
+    export default {
+        data() {
+            return {
+                posts: {}
+            }
+        },
+        mounted() {
+            this.getResult()
+        },
+        methods: {
+            getResult(page = 1) {
+                axios.get('/api/posts?page=' + page)
+                    .then(response => {
+                        this.posts = response.data
+                    });
+            }
+        }
+    }
 </script>
