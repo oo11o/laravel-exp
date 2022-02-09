@@ -24,8 +24,12 @@
         </style>
     </head>
     <body>
-        <div id="app">
-            <post-index></post-index>
+        <div class="container">
+            <div class="row">
+                <div id="app">
+                    <post-index></post-index>
+                </div>
+            </div>
         </div>
         <script src="{{ mix('js/app.js') }}"></script>
     </body>
