@@ -33,3 +33,10 @@ storage/*.key
 
 /.vagrant
 
+
+
+public/mix-manifest.json
+public/css/
+public/js/
+
+
