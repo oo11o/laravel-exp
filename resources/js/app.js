@@ -1,13 +1,14 @@
 require('./bootstrap');
 
 import { createApp } from 'vue';
-
-import PostIndex from './components/Posts/Index';
+import router from './routes';
+import App from './components/App';
 
 const app = createApp({
     components: {
-        PostIndex
+        App
     }
-})
+});
 
+app.use(router);
 app.mount('#app');
