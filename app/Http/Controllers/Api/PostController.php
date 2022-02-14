@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StorePostRequest;
 use App\Http\Resources\PostResource;
 use App\Models\Post;
 use Illuminate\Http\Request;
@@ -10,7 +11,6 @@ use Illuminate\Http\Request;
 class PostController extends Controller
 {
     public function index(Request $request){
-
 
         $sortField = $request->query('sort_field');
         $sortDirection = $request->query('sort_direction');
@@ -22,11 +22,18 @@ class PostController extends Controller
         if(!in_array($sortDirection, ['asc', 'desc'])){
             $sortDirection =  'desc';
         }
-        
+
         $posts = Post::when($request->filled('category_id'), function ($query){
             $query->where('category_id', request('category_id'));
         })->orderBy($sortField,$sortDirection)->paginate(10);
 
         return PostResource::collection($posts);
+    }
+
+    public function store(StorePostRequest $request){
+
+        $post = Post::create($request->validated());
+        return new PostResource($post);
+
     }
 }
